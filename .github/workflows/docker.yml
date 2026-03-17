@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Baixar código
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t pdf-service .
+      - name: Build da imagem Docker
+        run: docker build -t pdf-service:latest .
