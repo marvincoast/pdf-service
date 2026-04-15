@@ -9,7 +9,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --chown=appuser:appuser . .
+COPY --chown=appuser:appuser backend/ ./backend/
+COPY --chown=appuser:appuser frontend/ ./frontend/
+COPY --chown=appuser:appuser app.py .
 
 USER appuser
 EXPOSE 8080

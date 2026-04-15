@@ -1,0 +1,225 @@
+/* ═══════════════════════════════════════
+   PDF AI — Main CSS (Design System)
+   ═══════════════════════════════════════ */
+
+/* === TOKENS === */
+:root {
+  --bg-deep: #030308;
+  --bg-card: rgba(15, 15, 25, 0.55);
+  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-hover: rgba(255, 255, 255, 0.14);
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-glow: #a78bfa;
+  --accent-cyan: #22d3ee;
+  --accent-emerald: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-pink: #f472b6;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --success: #34d399;
+  --error: #f87171;
+  --warning: #fbbf24;
+  --radius-xl: 24px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-xl: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* === RESET === */
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  perspective: 1200px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === AURORA BACKGROUND === */
+.aurora-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -2; overflow: hidden; pointer-events: none;
+}
+
+.blob {
+  position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+}
+
+.blob-1 {
+  top: -15%; left: -10%; width: 55vw; height: 55vw;
+  background: radial-gradient(circle, var(--accent-primary), transparent);
+  animation: drift1 25s infinite ease-in-out;
+}
+
+.blob-2 {
+  bottom: -20%; right: -15%; width: 50vw; height: 50vw;
+  background: radial-gradient(circle, var(--accent-cyan), transparent);
+  animation: drift2 30s infinite ease-in-out;
+}
+
+.blob-3 {
+  top: 30%; left: 50%; width: 35vw; height: 35vw;
+  background: radial-gradient(circle, var(--accent-secondary), transparent);
+  animation: drift3 22s infinite ease-in-out;
+  opacity: 0.2;
+}
+
+.grid-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: -1; pointer-events: none;
+}
+
+/* === NAVBAR === */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 14px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(3, 3, 8, 0.75);
+  backdrop-filter: blur(24px) saturate(120%);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-brand {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text-primary);
+}
+
+.nav-logo {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: white; font-size: 14px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.nav-title {
+  font-size: 1.1rem; font-weight: 700; letter-spacing: -0.3px;
+}
+.nav-title span { color: var(--accent-glow); }
+
+.nav-links { display: flex; gap: 8px; }
+
+.nav-link {
+  padding: 8px 18px; border-radius: 10px;
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--text-secondary); text-decoration: none;
+  transition: all 0.3s var(--transition-smooth);
+  border: 1px solid transparent; cursor: pointer;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.05);
+  border-color: var(--glass-border-hover);
+}
+
+.nav-link.active,
+.nav-link.stacks {
+  background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(139,92,246,0.12));
+  border-color: rgba(99,102,241,0.25);
+  color: var(--accent-glow);
+}
+
+.nav-link.stacks:hover {
+  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.2));
+  border-color: rgba(99,102,241,0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.15);
+}
+
+.link-arrow {
+  margin-left: 6px; font-size: 0.8em; transition: transform 0.3s;
+}
+.nav-link:hover .link-arrow { transform: translateX(3px); }
+
+/* === GLASS PANEL === */
+.main-wrapper {
+  max-width: 1100px; margin: 110px auto 40px; padding: 0 24px;
+}
+
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(24px) saturate(130%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 44px;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+
+header {
+  text-align: center; margin-bottom: 40px;
+  transform: translateZ(40px);
+}
+
+h1 {
+  font-size: 2.6rem; font-weight: 800; letter-spacing: -1.5px;
+  background: linear-gradient(180deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-top: 8px;
+}
+
+/* === FOOTER === */
+.site-footer {
+  text-align: center; margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--glass-border);
+  transform: translateZ(20px);
+}
+
+.footer-links {
+  display: flex; justify-content: center; gap: 24px; margin-bottom: 12px;
+}
+
+.footer-link {
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 0.9rem; transition: color 0.3s;
+  display: flex; align-items: center; gap: 6px;
+}
+.footer-link:hover { color: var(--accent-glow); }
+
+.copyright {
+  font-size: 0.78rem; color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  h1 { font-size: 1.9rem; }
+  .glass-panel { padding: 24px; }
+  .navbar { padding: 14px 20px; }
+  .main-wrapper { margin-top: 100px; }
+  .nav-links { gap: 4px; }
+  .nav-link { padding: 6px 12px; font-size: 0.8rem; }
+}

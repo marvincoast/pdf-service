@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacks Técnicas — PDF AI | Marvin Costa</title>
+  <meta name="description" content="Tecnologias utilizadas no PDF AI: Docker, Ollama, Flask, PyMuPDF e mais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <style>
+    .container { max-width: 1000px; margin: 120px auto 60px; padding: 0 24px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 32px; }
+
+    .card {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+      border-radius: 14px; padding: 24px; transition: all 0.4s var(--transition-smooth);
+      position: relative; overflow: hidden;
+    }
+    .card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--accent-primary), var(--accent-cyan)); opacity: 0; transition: opacity 0.3s; }
+    .card:hover::before { opacity: 1; }
+
+    .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag {
+      padding: 4px 10px; background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2); border-radius: 6px;
+      font-size: 0.7rem; color: var(--accent-glow); font-family: var(--font-mono);
+    }
+
+    @media(max-width:768px) { .container { margin-top: 110px; } }
+  </style>
+</head>
+
+<body>
+  <div class="aurora-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div></div>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">PDF</div><div class="nav-title">PDF AI <span>Marvin Costa</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">App</a>
+      <a href="arquitetura.html" class="nav-link">Arquitetura</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="glass-panel page-enter">
+      <header><h1>Stacks Técnicas</h1><div class="subtitle">Tecnologias utilizadas no motor de análise inteligente</div></header>
+
+      <div class="grid">
+        <div class="card"><div class="card-icon">🐳</div><h3>Docker</h3><p>Contêinerização completa. Garante isolamento, portabilidade e deploy consistente em qualquer ambiente.</p><div class="tags"><span class="tag">Containerization</span><span class="tag">DevOps</span></div></div>
+        <div class="card"><div class="card-icon">🧩</div><h3>Docker Compose</h3><p>Orquestração de múltiplos serviços (App + Ollama + Volumes). Deploy com um único comando.</p><div class="tags"><span class="tag">Orchestration</span><span class="tag">YAML</span></div></div>
+        <div class="card"><div class="card-icon">🧠</div><h3>Ollama</h3><p>Runtime local de inferência de LLMs. Roda modelos de IA diretamente na máquina, sem nuvem.</p><div class="tags"><span class="tag">Local AI</span><span class="tag">Inference Engine</span></div></div>
+        <div class="card"><div class="card-icon">📡</div><h3>Qwen 3.5 / Phi-3</h3><p>Modelos de linguagem otimizados para extração, classificação e sumarização de documentos.</p><div class="tags"><span class="tag">LLM</span><span class="tag">NLP</span><span class="tag">Quantized</span></div></div>
+        <div class="card"><div class="card-icon">🐍</div><h3>Python & Flask</h3><p>Backend leve com Flask + Blueprint + App Factory. Gunicorn em produção com 2 workers.</p><div class="tags"><span class="tag">Backend</span><span class="tag">REST API</span><span class="tag">Modular</span></div></div>
+        <div class="card"><div class="card-icon">📄</div><h3>PyMuPDF (fitz)</h3><p>Camada de ingestão: extrai texto bruto e metadados do PDF com alta performance.</p><div class="tags"><span class="tag">Text Extraction</span><span class="tag">Input Pipeline</span></div></div>
+        <div class="card"><div class="card-icon">🎨</div><h3>Frontend Moderno</h3><p>Interface imersiva com Glassmorphism, Parallax 3D, animações CSS puras e design responsivo.</p><div class="tags"><span class="tag">UI/UX</span><span class="tag">CSS3</span><span class="tag">Vanilla JS</span></div></div>
+        <div class="card"><div class="card-icon">🔒</div><h3>Segurança & Privacidade</h3><p>Processamento 100% local. Nenhum dado é enviado para servidores externos.</p><div class="tags"><span class="tag">Zero-Data-Leak</span><span class="tag">Local-First</span></div></div>
+        <div class="card"><div class="card-icon">🏗️</div><h3>Arquitetura Modular</h3><p>Backend separado em config, routes, services e utils. Frontend com CSS/JS modular.</p><div class="tags"><span class="tag">Clean Code</span><span class="tag">SOLID</span><span class="tag">Blueprints</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        if (this.getAttribute('href').endsWith('.html')) {
+          e.preventDefault();
+          document.body.classList.add('page-exit');
+          setTimeout(() => window.location.href = this.getAttribute('href'), 500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
