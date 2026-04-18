@@ -305,11 +305,13 @@ Texto do trecho:
 def _chunked_pipeline(full_text: str, doc_type: str) -> tuple[dict | None, dict]:
     chunks = _chunk_text(full_text, LLM_CHUNK_SIZE, LLM_CHUNK_OVERLAP, LLM_MAX_CHUNKS)
     digest_parts = []
-    provider_used = "unknown"
     for i, ch in enumerate(chunks):
         try:
-            frag, prov = _raw_chat(_fragment_prompt(doc_type, ch, i + 1, len(chunks)), max_tokens=1000, use_json=True)
-            provider_used = prov
+            frag, _ = _raw_chat(
+                _fragment_prompt(doc_type, ch, i + 1, len(chunks)),
+                max_tokens=1000,
+                use_json=True,
+            )
             part = _extract_json(frag)
             if part:
                 digest_parts.append(json.dumps(part, ensure_ascii=False)[:3200])

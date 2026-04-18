@@ -47,6 +47,7 @@ DOCUMENT_TYPES = {
     "other": "Outro/Genérico",
 }
 
+
 # === Logging (ficheiros em logs/ — pasta dedicada; nunca na raiz por engano) ===
 def _resolve_log_dir() -> str:
     """

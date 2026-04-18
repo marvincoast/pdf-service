@@ -32,6 +32,9 @@ desktop.ini
 # Logs da aplicação — ignorar conteúdo de logs/, mas manter logs/.gitkeep versionado
 # (não usar só `logs/**`: isso ignora o diretório e o `!` do .gitkeep deixa de funcionar)
 /*.log
+# Capturas manuais na raiz (redirecionar para logs/ ou usar volume ./logs)
+/docker_logs*.txt
+/docker_final.txt
 /logs/*
 !/logs/.gitkeep
 

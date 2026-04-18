@@ -2,6 +2,7 @@
 Normaliza a saída JSON do LLM (agora usando categorias dinâmicas) e retrocompatibilidade com UI antiga.
 """
 
+
 def normalize_llm_extracted_data(doc_type: str, data: dict) -> dict:
     """
     Enriquece `data` com campos planos a partir de `grouped_info` se presentes.
@@ -13,10 +14,10 @@ def normalize_llm_extracted_data(doc_type: str, data: dict) -> dict:
 
     out = dict(data)
     gi = out.get("grouped_info") or {}
-    
+
     # Se o grouped_info já veio no formato dinâmico, o analisador do frontend vai percorrê-lo normalmente.
     # Mas para garantir que os cards antigos não quebrem, vamos tentar mapear chaves "conhecidas" se não existirem
-    
+
     # Flatten simples baseado no título do grupo, para a UI retrocompativel
     if not out.get("dynamic_groups"):
         out["dynamic_groups"] = gi

@@ -66,7 +66,7 @@ def intelligent_fallback(text: str, doc_type: str) -> dict:
     """
     logger.info(f"🔄 Executando fallback inteligente para tipo: {doc_type}")
 
-    lines = [l.strip() for l in text.split('\n') if l.strip()]
+    lines = [line.strip() for line in text.split('\n') if line.strip()]
 
     # Entidades comuns extraídas por regex
     entities = _extract_common_entities(text)
@@ -78,7 +78,7 @@ def intelligent_fallback(text: str, doc_type: str) -> dict:
     }
 
     # Sempre gera um resumo baseado nas primeiras linhas
-    preview_lines = [l for l in lines[:10] if len(l) > 10]
+    preview_lines = [line for line in lines[:10] if len(line) > 10]
     result["detailed_summary"] = (
         f"Documento classificado como '{doc_type}'. "
         f"Contém {len(text.split())} palavras em {len(lines)} linhas. "
@@ -130,7 +130,6 @@ def _extract_common_entities(text: str) -> dict:
 
 def _handle_resume(text, lines, entities):
     """Extração específica para currículos."""
-    text_lower = text.lower()
     name = lines[0] if lines else "Não identificado"
 
     # Skills técnicas (palavras capitalizadas com 4+ chars)
@@ -138,10 +137,14 @@ def _handle_resume(text, lines, entities):
     skills = list(set(tech_words))[:15]
 
     # Seções do currículo
-    sections = [l for l in lines if len(l) < 40 and any(
-        k in l.lower() for k in ["experiência", "formação", "educação", "habilidades",
-                                   "competências", "idiomas", "certificações", "objetivo"]
-    )]
+    kw = [
+        "experiência", "formação", "educação", "habilidades",
+        "competências", "idiomas", "certificações", "objetivo",
+    ]
+    sections = [
+        line for line in lines
+        if len(line) < 40 and any(k in line.lower() for k in kw)
+    ]
 
     return {
         "personal_info": {
@@ -166,12 +169,16 @@ def _handle_resume(text, lines, entities):
 def _handle_certificate(text, lines, entities):
     """Extração para certificados/diplomas."""
     name = lines[0] if lines else "Não identificado"
-    institutions = [l for l in lines if any(
-        k in l.lower() for k in ["universidade", "faculdade", "instituto", "centro", "escola"]
-    )]
-    courses = [l for l in lines if len(l) > 20 and not any(
-        k in l.lower() for k in ["universidade", "faculdade", "certificado", "diploma"]
-    )]
+    institutions = [
+        line for line in lines
+        if any(k in line.lower() for k in ["universidade", "faculdade", "instituto", "centro", "escola"])
+    ]
+    courses = [
+        line for line in lines
+        if len(line) > 20 and not any(
+            k in line.lower() for k in ["universidade", "faculdade", "certificado", "diploma"]
+        )
+    ]
 
     return {
         "student_name": name,
@@ -193,6 +200,7 @@ def _handle_bank_statement(text, lines, entities):
 
     # Calcula maior valor fora do f-string (backslash não permitido em f-string no Python < 3.12)
     _pat = re.compile(r'[R$.\s]')
+
     def _to_float(v):
         try:
             return float(_pat.sub('', v).replace(',', '.'))
@@ -320,7 +328,7 @@ def _handle_invoice(text, lines, entities):
     else:
         findings.append("Nenhum valor em R$ no formato esperado foi encontrado.")
 
-    preview = " | ".join([l for l in lines[:6] if len(l.strip()) > 8][:3])
+    preview = " | ".join([line for line in lines[:6] if len(line.strip()) > 8][:3])
     summary_parts = ["Este PDF foi classificado como nota fiscal ou documento fiscal semelhante."]
     if nf_display:
         summary_parts.append(f"Número da NF: {nf_display}.")
@@ -347,7 +355,7 @@ def _handle_invoice(text, lines, entities):
 
 def _handle_contract(text, lines, entities):
     """Extração para contratos."""
-    clauses = [l for l in lines if re.match(r'^(CLÁUSULA|Cláusula|cláusula)\s', l)]
+    clauses = [line for line in lines if re.match(r'^(CLÁUSULA|Cláusula|cláusula)\s', line)]
 
     return {
         "parties_cpf_cnpj": entities["cpfs"] + entities["cnpjs"],
@@ -381,12 +389,15 @@ def _handle_legal(text, lines, entities):
 
 def _handle_technical(text, lines, entities):
     """Extração para relatórios técnicos."""
-    sections = [l for l in lines if len(l) < 50 and l.isupper() or (
-        len(l) < 60 and any(k in l.lower() for k in [
-            "introdução", "metodologia", "resultados", "conclusão",
-            "referências", "abstract", "objetivo"
-        ])
-    )]
+    tech_kw = [
+        "introdução", "metodologia", "resultados", "conclusão",
+        "referências", "abstract", "objetivo",
+    ]
+    sections = [
+        line for line in lines
+        if (len(line) < 50 and line.isupper())
+        or (len(line) < 60 and any(k in line.lower() for k in tech_kw))
+    ]
 
     return {
         "sections_found": sections[:10],
