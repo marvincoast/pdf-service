@@ -7,6 +7,19 @@ Motor de análise de PDFs com **classificação automática**, **extração de t
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker&logoColor=white)
 ![LLM](https://img.shields.io/badge/LLM-OpenAI--compatible%20local-purple)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+[![Preview](https://img.shields.io/badge/Preview-GitHub%20Pages-0ea5e9?logo=github&logoColor=white)](https://marvincoast.github.io/pdf-service/)
+
+---
+
+## Preview (GitHub Pages)
+
+Interface do frontend publicada automaticamente a cada push na branch `main`:
+
+**[https://marvincoast.github.io/pdf-service/](https://marvincoast.github.io/pdf-service/)**
+
+O deploy usa o workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) e publica apenas os arquivos estáticos de `frontend/` (Início, Relatório, Arquitetura, Stacks). Upload e análise de PDF exigem o backend rodando localmente ou via Docker.
+
+**Primeira vez?** Em **Settings → Pages** do repositório no GitHub, defina **Source** como **GitHub Actions**.
 
 ---
 
